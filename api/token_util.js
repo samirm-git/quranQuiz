@@ -3,10 +3,8 @@ import axios from "axios";
 let cachedToken = null;
 let tokenExpiry = 0;
 
-const clientId = `${process.env.CLINET_ID}`;
-const clientSecret = `${process.env.CLINET_SECRET}` 
-console.log(clientId)
-console.log(clientSecret)
+const clientId = process.env.CLIENT_ID;
+const clientSecret = process.env.CLIENT_SECRET; 
 const auth = Buffer.from(`${clientId}:${clientSecret}`).toString('base64');
 
 export default async function getToken() {
@@ -22,7 +20,7 @@ export default async function getToken() {
       method: 'post',
       url:  `${process.env.ENDPOINT_AUTH}/oauth2/token`,
       headers: {
-        'Authorisation': `Basic ${auth}`,
+        'Authorization': `Basic ${auth}`,
         'Content-Type': 'application/x-www-form-urlencoded'
       },
       data: 'grant_type=client_credentials&scope=content'
