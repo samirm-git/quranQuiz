@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getToken } from "./token_util.js";
+import getToken from "./token_util.js";
 
 export default async function handler(req, res) {
   try {
