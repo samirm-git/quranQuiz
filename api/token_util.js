@@ -5,6 +5,8 @@ let tokenExpiry = 0;
 
 const clientId = `${process.env.CLINET_ID}`;
 const clientSecret = `${process.env.CLINET_SECRET}` 
+console.log(clientId)
+console.log(clientSecret)
 const auth = Buffer.from(`${clientId}:${clientSecret}`).toString('base64');
 
 export default async function getToken() {
