@@ -12,7 +12,7 @@ export default async function getToken() {
 
   // Return cached token if still valid
   if (cachedToken && now < tokenExpiry) {
-    return res.status(200).json({ access_token: cachedToken });
+    return cachedToken;
   }
 
   try {
