@@ -14,15 +14,16 @@ function App() {
   const fetchRandomAyah = useCallback(async () => {
     setLoading(true)
     setError(null)
+    console.log(`VITE DOMAIN: ${import.meta.env.VITE_VERCEL_DOMAIN}`)
     try {
       const res = await axios({
         method: 'get',
-        url: '/api/random_ayah'
+        url: `${import.meta.env.VITE_VERCEL_DOMAIN}/api/random_ayah`
       })
       // if (!res.ok) throw new Error(`HTTP error! Status: ${res.status}`)
       setAyah(res.data.verse) // adapt to your API response structure
-      console.log(res.data)
-      console.log(res.data.verse)
+      console.log(`res.data: ${res.data}`)
+      console.log(`res.data.verse: ${res.data.verse}`)
     } catch (err) {
     // Properly read error from Axios
     if (err.response) {
