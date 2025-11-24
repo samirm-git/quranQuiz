@@ -21,8 +21,6 @@ function App() {
       })
       // if (!res.ok) throw new Error(`HTTP error! Status: ${res.status}`)
       setAyah(res.data.verse) // adapt to your API response structure
-      console.log(`res.data: ${res.data}`)
-      console.log(`res.data.verse: ${res.data.verse}`)
     } catch (err) {
     // Properly read error from Axios
     if (err.response) {
