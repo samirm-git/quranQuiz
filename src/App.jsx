@@ -5,7 +5,7 @@ import {QuizGuessSurah} from './QuizGuessSurah'
 
 
 async function fetchRandomAyah({chapter_number, page_number, juz_number, hizb_number,
-  rub_el_hizb_number, ruku_number, manzil_number, language, words, translations, audio, tafsirs}){
+  rub_el_hizb_number, ruku_number, manzil_number, language, words, translations, audio, tafsirs} = {}){
 
   let params = {
     chapter_number: chapter_number,
@@ -46,7 +46,7 @@ function App() {
     setLoading(true)
     setError(null)
     try {
-      const res = await fetchRandomAyah() 
+      const res = await fetchRandomAyah({juz_number:30}) 
       console.log(res)
       setAyah(res.data.verse) // adapt to your API response structure
     } catch (err) {
@@ -83,7 +83,7 @@ function App() {
           {loading ? 'Loading...' : 'Get Random Ayah'}
         </button>
 
-        {error && <p className="error">{error}</p>}
+        {error && <p className="error">{JSON.stringify(error)}</p>}
 
         {ayah && (
           <div className="ayah-display">
