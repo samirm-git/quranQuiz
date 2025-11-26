@@ -76,7 +76,7 @@ function App() {
 
   return (
     <>
-      <h1>Qur'an Random Ayah</h1>
+      <h1>Qur'an Random Ayah </h1>
 
       <div className="card">
         <button onClick={RandomAyah} disabled={loading}>
