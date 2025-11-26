@@ -3,7 +3,7 @@ import getToken from "./token_util.js";
 
 export default async function handler(req, res) {
   try {
-    const token = await getToken();
+    const token = await getToken(); 
 
     const response = await axios({
       method: 'get',
@@ -15,6 +15,7 @@ export default async function handler(req, res) {
         },
       params: {
         fields: 'text_uthmani,text_indopak',
+        ...req.query
       }
       }
     );

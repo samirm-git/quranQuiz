@@ -1,8 +1,39 @@
 import { useState, useEffect, useCallback  } from 'react'
 import axios from 'axios'
-import reactLogo from '/react.svg'
-import viteLogo from './assets/vite.svg'
 import './App.css'
+import {QuizGuessSurah} from './QuizGuessSurah'
+
+
+async function fetchRandomAyah({chapter_number, page_number, juz_number, hizb_number,
+  rub_el_hizb_number, ruku_number, manzil_number, language, words, translations, audio, tafsirs} = {}){
+
+  let params = {
+    chapter_number: chapter_number,
+    page_number: page_number,
+    juz_number: juz_number,
+    hizb_number: hizb_number,
+    rub_el_hizb_number: rub_el_hizb_number,
+    ruku_number: ruku_number,
+    manzil_number: manzil_number,
+    language: language,
+    words: words,
+    translations: translations,
+    audio: audio,
+    tafsirs: tafsirs,
+  };
+
+  Object.keys(params).forEach(
+    key => params[key] === undefined && delete params[key]
+  );
+
+  const res = await axios({
+    method: 'get',
+    url: '/api/random_ayah',
+    params
+  });
+
+  return res
+}
 
 function App() {
   const [count, setCount] = useState(0)
@@ -10,16 +41,14 @@ function App() {
   const [ayah, setAyah] = useState(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
-
-  const fetchRandomAyah = useCallback(async () => {
+    
+  const RandomAyah = useCallback(async () => {
     setLoading(true)
     setError(null)
     try {
-      const res = await axios({
-        method: 'get',
-        url: '/api/random_ayah'
-      })
-      // if (!res.ok) throw new Error(`HTTP error! Status: ${res.status}`)
+      const res = await fetchRandomAyah({juz_number:30}) 
+      console.log(res)
+
       setAyah(res.data.verse) // adapt to your API response structure
     } catch (err) {
     // Properly read error from Axios
@@ -42,19 +71,20 @@ function App() {
   }, [])
 
   useEffect(() => {
-    fetchRandomAyah()
-  }, [fetchRandomAyah])
+    RandomAyah()
+  }, [RandomAyah])
+  
 
   return (
     <>
-      <h1>Qur'an Random Ayah</h1>
+      <h1>Qur'an Random Ayah </h1>
 
       <div className="card">
-        <button onClick={fetchRandomAyah} disabled={loading}>
+        <button onClick={RandomAyah} disabled={loading}>
           {loading ? 'Loading...' : 'Get Random Ayah'}
         </button>
 
-        {error && <p className="error">{error}</p>}
+        {error && <p className="error">{JSON.stringify(error)}</p>}
 
         {ayah && (
           <div className="ayah-display">
@@ -68,6 +98,10 @@ function App() {
             )}
           </div>
         )}
+        <br />
+          {ayah && <QuizGuessSurah/>}
+          
+
       </div>
     </>
   )
