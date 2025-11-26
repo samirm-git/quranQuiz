@@ -48,6 +48,7 @@ function App() {
     try {
       const res = await fetchRandomAyah({juz_number:30}) 
       console.log(res)
+
       setAyah(res.data.verse) // adapt to your API response structure
     } catch (err) {
     // Properly read error from Axios
