@@ -5,6 +5,7 @@ import './App.css'
 
 //1) Make ayah.jsx which has 2 function - 1 to fetch random ayah, 2 to display ayah UI. 
 // 2) in other pages import the fetch random ayah function, and then use the UI component with the random ayah passed in as a prop
+// 3) Need to add filter options to modify random ayah generation 
 function QuizGuessSurah({trueVerseKey}) {
   const [trueChapterId, trueVerseNumber] = trueVerseKey.split(":") 
   const [resultMessage, setResultMessage] = useState("");
