@@ -2,20 +2,14 @@ import { useState, useRef, useEffect} from 'react';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 import './App.css'
+import { RandomAyahUI} from './Ayah';
+import useRandomAyah from "./hooks/useRandomAyah";
 
 //1) Make ayah.jsx which has 2 function - 1 to fetch random ayah, 2 to display ayah UI. 
 // 2) in other pages import the fetch random ayah function, and then use the UI component with the random ayah passed in as a prop
 // 3) Need to add filter options to modify random ayah generation 
-function QuizGuessSurah({trueVerseKey}) {
-  const [trueChapterId, trueVerseNumber] = trueVerseKey.split(":") 
-  const [resultMessage, setResultMessage] = useState("");
-  const [score, setScore] = useState(0);
-  const [disableGuess, setDisableGuess] = useState(false);
-
-  useEffect( () => {setDisableGuess(false)}, [trueVerseKey]);
-
-  const surah_ids = Array.from({length: 114}, (_, index) => index + 1);
-  const surah_names = [
+const surah_ids = Array.from({length: 114}, (_, index) => index + 1);
+const surah_names = [
   "Al-Fatiha", "Al-Baqara", "Aal-Imran", "An-Nisaa'", "Al-Ma'ida", "Al-An'am",
   "Al-A'raf", "Al-Anfal", "Al-Tawba", "Yunus", "Hud", "Yusuf", "Ar-Ra'd",
   "Ibrahim", "Al-Hijr", "An-Nahl", "Al-Israa", "Al-Kahf", "Maryam", "Ta-Ha",
@@ -36,10 +30,25 @@ function QuizGuessSurah({trueVerseKey}) {
   "Al-Kauthar", "Al-Kafirun", "An-Nasr", "Al-Masad", "Al-Ikhlas", "Al-Falaq",
   "An-Nas"
 ]; 
+
+
+function QuizGuessSurah() {
+
+  const { ayah, loading, error, loadRandomAyah } = useRandomAyah(); 
+  const [resultMessage, setResultMessage] = useState("");
+  const [score, setScore] = useState(0);
+  const [disableGuess, setDisableGuess] = useState(false);
   const surahIdGuess = useRef(null);
 
+  useEffect( () => {setDisableGuess(false)}, [ayah?.verse_key]);
+  
+  if (!ayah) {
+    return <div>Loading Ayah...</div>;
+  }
+  
+  const [trueChapterId, trueVerseNumber] = ayah.verse_key.split(":") 
+
   function guessSurah() {
-    console.log(`surahIdGuess.current: ${surahIdGuess.current}`)
     if (!surahIdGuess.current) {
       setResultMessage("Please select a Surah first.");
       return;
@@ -60,6 +69,7 @@ function QuizGuessSurah({trueVerseKey}) {
 return (
   <>
   <div className="score-counter"> Score: {score}</div>
+  <RandomAyahUI ayah={ayah} loading={loading} error={error} refreshAyah={loadRandomAyah} /> 
   <div>
     <Autocomplete
     options={surah_ids}
