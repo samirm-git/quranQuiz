@@ -46,7 +46,7 @@ function App() {
     setLoading(true)
     setError(null)
     try {
-      const res = await fetchRandomAyah({chapter_number:1}) 
+      const res = await fetchRandomAyah() 
       console.log(res)
 
       setAyah(res.data.verse) // adapt to your API response structure
