@@ -1,10 +1,18 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect} from 'react';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
+import './App.css'
 
-function QuizGuessSurah() {
-
+//1) Make ayah.jsx which has 2 function - 1 to fetch random ayah, 2 to display ayah UI. 
+// 2) in other pages import the fetch random ayah function, and then use the UI component with the random ayah passed in as a prop
+function QuizGuessSurah({trueVerseKey}) {
+  const [trueChapterId, trueVerseNumber] = trueVerseKey.split(":") 
   const [resultMessage, setResultMessage] = useState("");
+  const [score, setScore] = useState(0);
+  const [disableGuess, setDisableGuess] = useState(false);
+
+  useEffect( () => {setDisableGuess(false)}, [trueVerseKey]);
+
   const surah_ids = Array.from({length: 114}, (_, index) => index + 1);
   const surah_names = [
   "Al-Fatiha", "Al-Baqara", "Aal-Imran", "An-Nisaa'", "Al-Ma'ida", "Al-An'am",
@@ -27,34 +35,38 @@ function QuizGuessSurah() {
   "Al-Kauthar", "Al-Kafirun", "An-Nasr", "Al-Masad", "Al-Ikhlas", "Al-Falaq",
   "An-Nas"
 ]; 
-  let surah_id_guess
-  let true_surah_id = 1
-  
-  function guessSurah() {
-  if (!surah_id_guess) {
-    setResultMessage("Please select a Surah first.");
-    return;
-  }
+  const surahIdGuess = useRef(null);
 
-  if (surah_id_guess === true_surah_id) {
-    setResultMessage("✅ Correct! Great job!");
-    setScore((prev) => prev + 1);
-  } else {
-    setResultMessage(
-      `❌ Incorrect. The correct Surah was ${true_surah_id}: ${surah_names[true_surah_id - 1]}`
-    );
-  }
+  function guessSurah() {
+    console.log(`surahIdGuess.current: ${surahIdGuess.current}`)
+    if (!surahIdGuess.current) {
+      setResultMessage("Please select a Surah first.");
+      return;
+    }
+    setDisableGuess(true)
+
+    if (surahIdGuess.current == trueChapterId ) {
+      setResultMessage("✅ Correct! Great job!");
+      setScore((prev) => {return prev + 1 });
+    } else {
+      setResultMessage(
+        `❌ Incorrect. The correct Surah was ${trueChapterId}: ${surah_names[trueChapterId - 1]}`
+      );
+    }
 }
+  
+
 return (
   <>
+  <div className="score-counter"> Score: {score}</div>
   <div>
     <Autocomplete
     options={surah_ids}
     getOptionLabel={(id) => `${id}. ${surah_names[id - 1]}`}
-      onChange={(_, newSurahGuess) => surah_id_guess = newSurahGuess }
+      onChange={(_, newSurahGuess) => surahIdGuess.current = newSurahGuess }
     renderInput={(params) => <TextField {...params} label="Select Surah" />}
     />
-    <button onClick={guessSurah}>
+    <button onClick={guessSurah} disabled={disableGuess}>
       Submit
     </button>
     <p>{resultMessage}</p>
