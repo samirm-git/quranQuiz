@@ -46,7 +46,7 @@ function App() {
     setLoading(true)
     setError(null)
     try {
-      const res = await fetchRandomAyah({juz_number:30}) 
+      const res = await fetchRandomAyah({chapter_number:1}) 
       console.log(res)
 
       setAyah(res.data.verse) // adapt to your API response structure
@@ -69,10 +69,11 @@ function App() {
       setLoading(false)
     }
   }, [])
+ 
 
   useEffect(() => {
     RandomAyah()
-  }, [RandomAyah])
+  }, [])
   
 
   return (
@@ -99,7 +100,7 @@ function App() {
           </div>
         )}
         <br />
-          {ayah && <QuizGuessSurah/>}
+          {ayah && <QuizGuessSurah trueVerseKey={ayah.verse_key} />}
           
 
       </div>
