@@ -4,10 +4,10 @@ import getToken from "./token_util.js";
 export default async function handler(req, res) {
   try {
     const token = await getToken(); 
-    console.log(`url request:  ${process.env.ENDPOINT_API}/verses/by_key/${req.query}`)
+    console.log(`url request:  ${process.env.ENDPOINT_API}/verses/by_key/${req.query.verse_key}`)
     const response = await axios({
       method: 'get',
-      url: `${process.env.ENDPOINT_API}/verses/by_key/${req.query}`,
+      url: `${process.env.ENDPOINT_API}/verses/by_key/${req.query.verse_key}`,
       headers: {
           "Accept": 'application/json',
           "x-auth-token": token,

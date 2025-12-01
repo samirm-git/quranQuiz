@@ -4,7 +4,7 @@ import getToken from "./token_util.js";
 export default async function handler(req, res) {
   try {
     const token = await getToken(); 
-
+    console.log(`backend fetchRandom req query: ${JSON.stringify(req.query)}`)
     const response = await axios({
       method: 'get',
       url: `${process.env.ENDPOINT_API}/verses/random`,

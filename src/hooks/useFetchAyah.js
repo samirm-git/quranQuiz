@@ -1,28 +1,26 @@
 import { useState, useEffect } from "react";
 
-export default function useFetchAyah(fetchFunction, fetchParams = {}) {
+export default function useFetchAyah() {
   const [ayah, setAyah] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  async function loadRandomAyah() {
+  async function loadAyah(fetchFunction, fetchParams = {}) {
     setLoading(true);
     setError(null);
 
     try {
       const res = await fetchFunction(fetchParams);
-      setAyah(res.data.verse);
+      return res.data.verse; // Return the verse instead of setting state
     } catch (err) {
       const message =
         err.response?.data?.error || err.message || "Unknown error";
       setError(message);
+      return null;
     } finally {
       setLoading(false);
     }
   }
 
-  useEffect(() => {
-    loadRandomAyah();
-  }, []);
-  return { ayah, loading, error, loadRandomAyah };
+  return { loading, error, loadAyah };
 }
