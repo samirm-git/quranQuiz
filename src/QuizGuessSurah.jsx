@@ -63,6 +63,7 @@ function QuizGuessSurah() {
 
   const {loading, error, loadAyah } = useFetchAyah(); 
   const [ayahList, setAyahList] = useState([]);
+  const [quizAyahKey, setQuizAyahKey] = useState(null);
 
   const [resultMessage, setResultMessage] = useState("");
   const [score, setScore] = useState(0);
@@ -76,6 +77,7 @@ function QuizGuessSurah() {
     const newAyah = await loadAyah(fetchRandomAyah);
     if (newAyah) {
       setAyahList([newAyah]); // Reset to only the new random ayah
+      setQuizAyahKey(newAyah.verse_key);
     }
   };
 
@@ -115,7 +117,7 @@ return (
   <>
   <div className="score-counter"> Score: {score}</div>
    <h1>Qur'an Random Ayah </h1>
-  <AyahDisplay ayahList={ayahList} loading={loading} error={error}/> 
+  <AyahDisplay ayahList={ayahList} loading={loading} error={error} quizAyahKey={quizAyahKey}/> 
 
   <div className="button-group">
     <button onClick={handlePrevious} disabled={loading || ayahList.length === 0}>

@@ -84,8 +84,20 @@ color: #ffffff;
   background: transparent;
 }
 
+/* .ayah-item {
+  margin-bottom: 2rem;
+} */
 .ayah-item {
   margin-bottom: 2rem;
+  padding: 1rem;
+  border-radius: 8px;
+  transition: background-color 0.2s ease;
+}
+
+/* Highlight the random ayah */
+.ayah-item.ayah-random {
+  background-color: #fff9e6; /* Light yellow/cream */
+  border-left: 3px solid #fbbf24; /* Optional accent border */
 }
 
 .ayah-text {

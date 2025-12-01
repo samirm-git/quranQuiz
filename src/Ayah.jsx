@@ -29,7 +29,6 @@ async function fetchSpecificAyah({verse_key, language, words, translations, audi
   }
   try {
   let params = {verse_key}
-  console.log(`front end api params: ${JSON.stringify(params)}`)
   const res = await axios({
     method: 'get',
     url: '/api/specific_ayah',
@@ -43,7 +42,7 @@ async function fetchSpecificAyah({verse_key, language, words, translations, audi
 
 }
 
-function AyahDisplay({ayahList, loading, error}) {
+function AyahDisplay({ayahList, loading, error, quizAyahKey}) {
   // if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
   if (!ayahList || ayahList.length === 0) return <div>No ayahs loaded yet</div>;
@@ -52,8 +51,8 @@ function AyahDisplay({ayahList, loading, error}) {
     <>
      
       <div className="ayah-container">
-        {ayahList.map((a, index) => (
-          <div key={index} className="ayah-item">
+        {ayahList.map((a) => (
+          <div key={a.verse_key} className={`ayah-item ${a.verse_key === quizAyahKey ? 'ayah-random' : ''}`}>
             <p className="ayah-text">
               {a.text_uthmani || a.text_indopak}
             </p>
