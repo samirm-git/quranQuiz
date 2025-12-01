@@ -2,12 +2,9 @@ import { useState, useRef, useEffect} from 'react';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 import './App.css'
-import { RandomAyahUI} from './Ayah';
-import useRandomAyah from "./hooks/useRandomAyah";
+import { RandomAyahUI, fetchRandomAyah} from './Ayah';
+import useFetchAyah from "./hooks/useFetchAyah";
 
-//1) Make ayah.jsx which has 2 function - 1 to fetch random ayah, 2 to display ayah UI. 
-// 2) in other pages import the fetch random ayah function, and then use the UI component with the random ayah passed in as a prop
-// 3) Need to add filter options to modify random ayah generation 
 const surah_ids = Array.from({length: 114}, (_, index) => index + 1);
 const surah_names = [
   "Al-Fatiha", "Al-Baqara", "Aal-Imran", "An-Nisaa'", "Al-Ma'ida", "Al-An'am",
@@ -31,22 +28,21 @@ const surah_names = [
   "An-Nas"
 ]; 
 
-
 function QuizGuessSurah() {
 
-  const { ayah, loading, error, loadRandomAyah } = useRandomAyah(); 
+  const {ayah: randomAyah, loading, error, loadRandomAyah } = useFetchAyah(fetchRandomAyah, {chapter_number:1}); 
   const [resultMessage, setResultMessage] = useState("");
   const [score, setScore] = useState(0);
   const [disableGuess, setDisableGuess] = useState(false);
   const surahIdGuess = useRef(null);
 
-  useEffect( () => {setDisableGuess(false)}, [ayah?.verse_key]);
+  useEffect( () => {setDisableGuess(false)}, [randomAyah?.verse_key]);
   
-  if (!ayah) {
+  if (!randomAyah) {
     return <div>Loading Ayah...</div>;
   }
   
-  const [trueChapterId, trueVerseNumber] = ayah.verse_key.split(":") 
+  const [trueChapterId, trueVerseNumber] = randomAyah.verse_key.split(":") 
 
   function guessSurah() {
     if (!surahIdGuess.current) {
@@ -69,8 +65,9 @@ function QuizGuessSurah() {
 return (
   <>
   <div className="score-counter"> Score: {score}</div>
-  <RandomAyahUI ayah={ayah} loading={loading} error={error} refreshAyah={loadRandomAyah} /> 
+  <RandomAyahUI ayah={randomAyah} loading={loading} error={error} refreshAyah={loadRandomAyah} /> 
   <div>
+  <br />
     <Autocomplete
     options={surah_ids}
     getOptionLabel={(id) => `${id}. ${surah_names[id - 1]}`}

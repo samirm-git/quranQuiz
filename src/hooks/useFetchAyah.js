@@ -1,17 +1,16 @@
 import { useState, useEffect } from "react";
-import {fetchRandomAyah} from "../Ayah";
 
-export default function useRandomAyah() {
+export default function useFetchAyah(fetchFunction, fetchParams = {}) {
   const [ayah, setAyah] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  async function loadRandomAyah(params = {}) {
+  async function loadRandomAyah() {
     setLoading(true);
     setError(null);
 
     try {
-      const res = await fetchRandomAyah(params);
+      const res = await fetchFunction(fetchParams);
       setAyah(res.data.verse);
     } catch (err) {
       const message =
@@ -25,6 +24,5 @@ export default function useRandomAyah() {
   useEffect(() => {
     loadRandomAyah();
   }, []);
-
   return { ayah, loading, error, loadRandomAyah };
 }

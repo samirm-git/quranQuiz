@@ -1,5 +1,6 @@
 import axios from 'axios'
 import './App.css'
+import { useEffect, useState } from 'react';
 
 async function fetchRandomAyah({chapter_number, page_number, juz_number, hizb_number, rub_el_hizb_number, ruku_number,
    manzil_number, language, words, translations, audio, tafsirs} = {}) {
@@ -23,7 +24,25 @@ async function fetchRandomAyah({chapter_number, page_number, juz_number, hizb_nu
 }
 }
 
+async function fetchSpecificAyah({verse_key}){
+  try {
+  let params = {verse_key}
+  const res = await axios({
+    method: 'get',
+    url: '/api/specific_ayah',
+    params
+  });
+
+  return res
+}catch (err){
+  throw new Error(`fetchSpecificAyah failed: ${err.message}`)
+}
+
+}
+
 function RandomAyahUI({ayah, refreshAyah, loading, error}) {
+  const [ayahList, setAyahList] = useState([ayah]);
+  useEffect(() => {setAyahList([ayah])}, [ayah.verse_key]);
 
   return (
     <>
@@ -37,20 +56,20 @@ function RandomAyahUI({ayah, refreshAyah, loading, error}) {
         {error && <p className="error">{JSON.stringify(error)}</p>}
 
    
-      {ayah && (
-        <div className="ayah-display">
-          <p style={{ fontSize: '1.5rem', marginTop: '1rem' }}>
-          {ayah.text_uthmani || ayah.text_indopak || 'No text available'}
-          </p>
-          {ayah.verse_key && (
-            <p style={{ marginTop: '0.5rem', fontStyle: 'italic' }}>
-            — Surah {ayah.verse_key} 
-          </p>
-            )}
+      </div>
+      <div className="ayah-container">
+        {ayahList.map((a, index) => (
+          <div key={index} className="ayah-item">
+            <p className="ayah-text">
+              {a.text_uthmani || a.text_indopak}
+            </p>
+            <p className="ayah-key">
+              — Surah {a.verse_key}
+            </p>
+            <hr />
           </div>
-        )}
-        </div>
-        <br />
+        ))}
+      </div> 
         </>
   )
 }

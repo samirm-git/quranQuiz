@@ -60,3 +60,52 @@ color: #ffffff;
 
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
 }
+
+.ayah-container {
+  max-height: 350px;       /* height of the scroll box */
+  overflow-y: auto;        /* enable vertical scrolling */
+  padding: 1rem;
+  margin-top: 1.5rem;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  background: #fafafa;
+  scroll-behavior: smooth;
+}
+
+/* Optional: better scrollbars on desktop */
+.ayah-container::-webkit-scrollbar {
+  width: 6px;
+}
+.ayah-container::-webkit-scrollbar-thumb {
+  background: #bbb;
+  border-radius: 10px;
+}
+.ayah-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.ayah-item {
+  margin-bottom: 2rem;
+}
+
+.ayah-text {
+  font-size: 1.7rem;
+  text-align: center;
+  line-height: 2.5rem;
+  direction: rtl;
+}
+
+.ayah-key {
+  margin-top: 0.3rem;
+  text-align: center;
+  font-style: italic;
+  color: #555;
+  direction: ltr;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 480px) {
+  .ayah-container {
+    max-height: 250px;   /* smaller scroll area on mobile */
+  }
+}
