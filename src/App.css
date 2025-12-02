@@ -121,3 +121,78 @@ color: #ffffff;
     max-height: 250px;   /* smaller scroll area on mobile */
   }
 }
+
+.filter-toggle {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  transition: transform 0.2s ease;
+}
+
+.filter-toggle:hover {
+  opacity: 0.7;
+}
+
+.quiz-filter-group {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  align-items: center;
+  margin: 1rem 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+  flex-wrap: wrap; /* Allow wrapping on small screens */
+}
+
+.quiz-filter-group.active {
+  max-height: 200px; /* Increased for wrapped content */
+}
+
+/* Make the Autocomplete boxes smaller */
+.quiz-filter-group .MuiAutocomplete-root {
+  width: 170px;
+  min-width: 120px; /* Prevent too small on mobile */
+}
+
+.quiz-filter-group .MuiTextField-root {
+  font-size: 0.875rem;
+}
+
+.quiz-filter-group .MuiInputBase-root {
+  height: 40px;
+  font-size: 0.875rem;
+}
+
+.quiz-filter-group .MuiInputLabel-root {
+  font-size: 0.875rem;
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+  .filter-toggle {
+    font-size: 1.25rem;
+    padding: 0.5rem;
+  }
+  
+  .quiz-filter-group {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
+  }
+  
+  .quiz-filter-group.active {
+    max-height: 250px; /* More height for stacked layout */
+  }
+  
+  .quiz-filter-group .MuiAutocomplete-root {
+    width: 100%; /* Full width on mobile */
+    max-width: 100%;
+  }
+  
+  .quiz-filter-group .MuiInputBase-root {
+    height: 44px; /* Slightly larger for touch targets */
+  }
+}

@@ -11,6 +11,7 @@ async function fetchRandomAyah({chapter_number, page_number, juz_number, hizb_nu
                   audio: audio, tafsirs: tafsirs}; 
     
     Object.keys(params).forEach( key => params[key] === undefined && delete params[key] );
+    console.log(`front-end API request params: ${JSON.stringify(params)}`)
     const res = await axios({
       method: 'get',
       url: '/api/random_ayah',

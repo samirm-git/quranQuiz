@@ -1,4 +1,11 @@
 const surah_ids = Array.from({length: 114}, (_, index) => index + 1);
+const juz_ids = Array.from({length:30}, (_, index) => index + 1);
+const page_numbers = Array.from({length:604}, (_, index) => index + 1);
+const hizb_numbers = Array.from({length:60}, (_, index) => index + 1);
+const rub_el_hizb_numbers = Array.from({length:240}, (_,index) => index + 1);
+const ruku_numbers = Array.from({length:558}, (_,index) => index +1 );
+const manzil_numbers = Array.from({length:7}, (_, index) => index + 1);
+
 const surah_names = [
   "Al-Fatiha", "Al-Baqara", "Aal-Imran", "An-Nisaa'", "Al-Ma'ida", "Al-An'am",
   "Al-A'raf", "Al-Anfal", "Al-Tawba", "Yunus", "Hud", "Yusuf", "Ar-Ra'd",
@@ -35,4 +42,4 @@ const ayahs_per_surah = [7, 286, 200, 176, 120, 165, 206, 75, 129, 109,
     5, 4, 5, 6                                     
 ];
 
-export {surah_ids, surah_names, ayahs_per_surah}
+export {surah_ids, juz_ids, page_numbers, hizb_numbers, rub_el_hizb_numbers, ruku_numbers, manzil_numbers, surah_names, ayahs_per_surah}

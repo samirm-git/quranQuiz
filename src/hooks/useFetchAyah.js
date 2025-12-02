@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 export default function useFetchAyah() {
   const [ayah, setAyah] = useState(null);
@@ -11,7 +11,7 @@ export default function useFetchAyah() {
 
     try {
       const res = await fetchFunction(fetchParams);
-      return res.data.verse; // Return the verse instead of setting state
+      return res.data.verse; 
     } catch (err) {
       const message =
         err.response?.data?.error || err.message || "Unknown error";
