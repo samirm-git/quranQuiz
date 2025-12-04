@@ -4,10 +4,10 @@ import getToken from "./token_util.js";
 export default async function handler(req, res) {
   try {
     const token = await getToken(); 
-    console.log(`backend fetchRandom req query: ${JSON.stringify(req.query)}`)
+    console.log(`url request:  ${process.env.ENDPOINT_API}/verses/by_key/${req.query.verse_key}`)
     const response = await axios({
       method: 'get',
-      url: `${process.env.ENDPOINT_API}/verses/random`,
+      url: `${process.env.ENDPOINT_API}/verses/by_key/${req.query.verse_key}`,
       headers: {
           "Accept": 'application/json',
           "x-auth-token": token,
@@ -15,7 +15,6 @@ export default async function handler(req, res) {
         },
       params: {
         fields: 'text_uthmani,text_indopak',
-        ...req.query
       }
       }
     );
@@ -29,3 +28,4 @@ export default async function handler(req, res) {
     });
   }
 }
+
