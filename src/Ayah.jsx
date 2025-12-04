@@ -57,9 +57,6 @@ function AyahDisplay({ayahList, loading, error, quizAyahKey}) {
             <p className="ayah-text">
               {a.text_uthmani || a.text_indopak}
             </p>
-            <p className="ayah-key">
-              — Surah {a.verse_key}
-            </p>
             <hr />
           </div>
         ))}
