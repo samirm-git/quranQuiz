@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect} from 'react';
+import { useState, useEffect} from 'react';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 import './App.css'
@@ -157,7 +157,7 @@ return (
    <QuizFilters setFilters={setFilters} />
    <AyahDisplay ayahList={ayahList} loading={loading} error={error} quizAyahKey={quizAyahKey}/> 
 
-  <div className="button-group">
+  <div>
     <button onClick={handlePrevious} disabled={loading || ayahList.length === 0}>
       Previous
     </button>
@@ -171,6 +171,7 @@ return (
 
         {error && <p className="error">{JSON.stringify(error)}</p>}   
   <br />
+  <div>
   <QuizButton 
         key={quizAyahKey}  // This is the magic line!
         trueChapterId={quizAyahKey.split(":")[0]} 
@@ -180,6 +181,7 @@ return (
   <button onClick={() => setScore(0)}>
     Reset Score
   </button>
+  </div>
   </>
 )
 }
