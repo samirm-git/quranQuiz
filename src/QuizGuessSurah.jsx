@@ -29,30 +29,35 @@ function QuizButton({trueChapterId, loading, setScore}) {
     }
 
     return (
-        <>
-            <Autocomplete
-                options={constants.surah_ids}
-                getOptionLabel={(id) => `${id}. ${constants.surah_names[id - 1]}`}
-                onChange={(_, newSurahGuess) => setGuessChapterID(newSurahGuess)}
-                renderInput={(params) => <TextField {...params} label="Select Surah" />}
-                disabled={isSubmitted}
-            />
-            <button
-                disabled={loading || isSubmitted}
-                onClick={handleSubmit}
-            >
-                Show Result
-            </button>
-            {resultMessage && <div>{resultMessage}</div>}
-        </>
-    );
+      <div className="quiz-section">
+          <Autocomplete
+              options={constants.surah_ids}
+              getOptionLabel={(id) => `${id}. ${constants.surah_names[id - 1]}`}
+              onChange={(_, newSurahGuess) => setGuessChapterID(newSurahGuess)}
+              renderInput={(params) => <TextField {...params} label="Select Surah" />}
+              disabled={isSubmitted}
+          />
+          <div className="button-group">
+              <button
+                  disabled={loading || isSubmitted}
+                  onClick={handleSubmit}
+              >
+                  Show Result
+              </button>
+              <button onClick={() => setScore(0)}>
+                  Reset Score
+              </button>
+          </div>
+          {resultMessage && <div>{resultMessage}</div>}
+      </div>
+  );
 } 
 
 function QuizFilters({setFilters}){
   const [isVisible, setIsVisible] = useState(false);
   
   return (
-    <>
+    <div className="filter-section">
       <button 
         className="filter-toggle"
         onClick={() => setIsVisible(!isVisible)}
@@ -60,45 +65,45 @@ function QuizFilters({setFilters}){
       >
         {isVisible ? 'Filters ▼' : 'Filters ▶'}
       </button>
-      <div className={`quiz-filter-group ${isVisible ? 'active' : ''}`}>
+      <div className={`filter-container ${isVisible ? 'active' : ''}`}>
         <Autocomplete
           options={constants.juz_ids}
           getOptionLabel={(id) => id.toString()}
           onChange={(_, newJuz) => setFilters(prev => ({ ...prev, juz_number: newJuz }))}
-          renderInput={(params) => <TextField {...params} label="Select Juz" />}
+          renderInput={(params) => <TextField {...params} label="Juz" />}
         /> 
         <Autocomplete
           options={constants.page_numbers}
           getOptionLabel={(id) => id.toString()}
           onChange={(_, newPage) => setFilters(prev => ({...prev, page_number: newPage}))}
-          renderInput={(params) => <TextField {...params} label="Select page number" />}
+          renderInput={(params) => <TextField {...params} label="Page" />}
         />
         <Autocomplete
           options={constants.hizb_numbers}
           getOptionLabel={(id) => id.toString()}
           onChange={(_, newHizb) => setFilters(prev => ({...prev, hizb_number: newHizb}))}
-          renderInput={(params) => <TextField {...params} label="Select Hizb number" />}
+          renderInput={(params) => <TextField {...params} label="Hizb" />}
         />
        <Autocomplete
           options={constants.rub_el_hizb_numbers}
           getOptionLabel={(id) => id.toString()}
           onChange={(_, newRubHizb) => setFilters(prev => ({...prev, rub_el_hizb_number: newRubHizb}))}
-          renderInput={(params) => <TextField {...params} label="Select Rub-el-Hizb number" />}
+          renderInput={(params) => <TextField {...params} label="Rub el Hizb" />}
         />
        <Autocomplete
           options={constants.ruku_numbers}
           getOptionLabel={(id) => id.toString()}
           onChange={(_, newRuku) => setFilters(prev => ({...prev, ruku_number: newRuku}))}
-          renderInput={(params) => <TextField {...params} label="Select Ruku number" />}
+          renderInput={(params) => <TextField {...params} label="Ruku" />}
         />
        <Autocomplete
           options={constants.manzil_numbers}
           getOptionLabel={(id) => id.toString()}
           onChange={(_, newManzil) => setFilters(prev => ({...prev, manzil_number: newManzil}))}
-          renderInput={(params) => <TextField {...params} label="Select Manzil number" />}
+          renderInput={(params) => <TextField {...params} label="Manzil" />}
         />
       </div>
-    </>
+    </div>
   )
 }
 
@@ -151,39 +156,44 @@ function QuizGuessSurah() {
   }
   
 return (
-  <>
-   <div className="score-counter">Score: {score}</div>
-   <h1>Qur'an Random Ayah </h1>
-   <QuizFilters setFilters={setFilters} />
-   <AyahDisplay ayahList={ayahList} loading={loading} error={error} quizAyahKey={quizAyahKey}/> 
+    <>
+      <div className="score-counter">Score: {score}</div>
+      
+      <h1>Qur'an Random Ayah</h1>
+      
+      <QuizFilters setFilters={setFilters} />
+      
+      <AyahDisplay 
+        ayahList={ayahList} 
+        loading={loading} 
+        error={error} 
+        quizAyahKey={quizAyahKey}
+      /> 
 
-  <div>
-    <button onClick={handlePrevious} disabled={loading || ayahList.length === 0}>
-      Previous
-    </button>
-    <button onClick={refreshAyah} disabled={loading}>
-      Random Ayah
-    </button>
-    <button onClick={handleNext} disabled={loading || ayahList.length === 0}>
-      Next
-    </button>
-  </div>
+      {error && <p className="error">{JSON.stringify(error)}</p>}   
 
-        {error && <p className="error">{JSON.stringify(error)}</p>}   
-  <br />
-  <div>
-  <QuizButton 
-        key={quizAyahKey}  // This is the magic line!
-        trueChapterId={quizAyahKey.split(":")[0]} 
-        loading={loading}
-        setScore={setScore}
-  />
-  <button onClick={() => setScore(0)}>
-    Reset Score
-  </button>
-  </div>
-  </>
-)
+      <div className="controls-section">
+        <div className="button-group">
+          <button onClick={handlePrevious} disabled={loading || ayahList.length === 0}>
+            Previous
+          </button>
+          <button onClick={refreshAyah} disabled={loading}>
+            Random Ayah
+          </button>
+          <button onClick={handleNext} disabled={loading || ayahList.length === 0}>
+            Next
+          </button>
+        </div>
+
+        <QuizButton 
+          key={quizAyahKey}  // This is the magic line!
+          trueChapterId={quizAyahKey.split(":")[0]} 
+          loading={loading}
+          setScore={setScore}
+        />
+      </div>
+    </>
+  )
 }
 
 function getNextVerseKey(verse_key){

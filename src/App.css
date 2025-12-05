@@ -1,3 +1,30 @@
+/* ===== CSS Custom Properties ===== */
+:root {
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  
+  --font-xs: 0.75rem;
+  --font-sm: 0.85rem;
+  --font-md: 1rem;
+  --font-lg: 1.2rem;
+  --font-xl: 1.4rem;
+  
+  --border-radius: 8px;
+  --border-color: #ddd;
+  --bg-light: #fafafa;
+  --bg-highlight: #fff9e6;
+  --color-primary: rgba(70, 140, 255, 0.25);
+  --color-text: #333;
+  --color-text-muted: #555;
+  
+  --button-height: 48px;
+  --input-height: 48px;
+}
+
+/* ===== Base Reset ===== */
 * {
   box-sizing: border-box;
 }
@@ -6,221 +33,158 @@ html, body {
   height: 100%;
   margin: 0;
   padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
-body {
-  overflow: hidden;
-}
-
+/* ===== Main Layout ===== */
 #root {
   height: 100vh;
   height: 100dvh;
   max-width: 1280px;
   margin: 0 auto;
-  padding: 1rem;
-  text-align: center;
+  padding: var(--spacing-md);
   display: flex;
   flex-direction: column;
-  overflow-y: auto;
+  gap: var(--spacing-md);
+  position: relative;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
-}
-
-/* Score Counter */
+/* ===== Score Counter ===== */
 .score-counter {
   position: fixed;
-  top: 10px;
-  left: 10px;
-  background: rgba(70, 140, 255, 0.25);
+  top: var(--spacing-md);
+  left: var(--spacing-md);
+  background: var(--color-primary);
   backdrop-filter: blur(6px);
-  color: #ffffff;
-  padding: 6px 12px;
-  border-radius: 8px;
-  font-size: 1rem;
+  color: white;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--border-radius);
+  font-size: var(--font-md);
   font-weight: 600;
-  font-family: Arial, Helvetica, sans-serif;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
   z-index: 1000;
 }
 
+/* ===== Typography ===== */
 h1 {
-  margin: 0.3rem 0;
-  font-size: 1.2rem;
-  flex-shrink: 0;
+  margin: 0;
+  font-size: var(--font-lg);
+  text-align: center;
+}
+
+/* ===== Filter Section ===== */
+.filter-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
 }
 
 .filter-toggle {
-  background: none;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 1rem;
+  align-self: center;
+  padding: var(--spacing-sm) var(--spacing-lg);
+  background: white;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  font-size: var(--font-md);
   cursor: pointer;
-  padding: 0.5rem 1rem;
-  transition: all 0.2s ease;
-  margin-bottom: 0.5rem;
-  flex-shrink: 0;
+  transition: all 0.2s;
 }
 
 .filter-toggle:hover {
-  background: #f0f0f0;
+  background: var(--bg-light);
+  transform: translateY(-1px);
 }
 
-.quiz-filter-group {
-  display: flex;
-  flex-direction: row;
-  gap: 0.75rem;
-  align-items: center;
-  margin: 0.75rem 0;
+.filter-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: var(--spacing-md);
   max-height: 0;
   overflow: hidden;
-  transition: max-height 0.3s ease;
-  flex-wrap: wrap;
-  flex-shrink: 0;
+  opacity: 0;
+  transition: all 0.3s ease;
 }
 
-.quiz-filter-group.active {
+.filter-container.active {
   max-height: 500px;
-  overflow-y: auto;
-  padding: 0.5rem 0;
+  opacity: 1;
+  padding: var(--spacing-md) 0;
 }
 
-/* Make the Autocomplete boxes bigger */
-.quiz-filter-group .MuiAutocomplete-root {
-  width: 180px;
-  min-width: 140px;
-}
-
-.quiz-filter-group .MuiTextField-root {
-  font-size: 0.9rem;
-}
-
-.quiz-filter-group .MuiInputBase-root {
-  height: 44px;
-  font-size: 0.9rem;
-}
-
-.quiz-filter-group .MuiInputLabel-root {
-  font-size: 0.9rem;
-}
-
-/* Ayah Container - This is the scrollable content area */
+/* ===== Ayah Display Area ===== */
 .ayah-container {
   flex: 1;
-  min-height: 0;
   overflow-y: auto;
-  overflow-x: hidden;
-  padding: 0.75rem;
-  margin: 0.5rem 0;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  background: #fafafa;
-  scroll-behavior: smooth;
-  display: flex;
-  flex-direction: column;
-}
-
-/* Wrapper to center content while allowing scroll */
-.ayah-container::before,
-.ayah-container::after {
-  content: '';
-  flex: 1;
-  min-height: 0;
-}
-
-/* Optional: better scrollbars on desktop */
-.ayah-container::-webkit-scrollbar {
-  width: 6px;
-}
-.ayah-container::-webkit-scrollbar-thumb {
-  background: #bbb;
-  border-radius: 10px;
-}
-.ayah-container::-webkit-scrollbar-track {
-  background: transparent;
+  padding: var(--spacing-lg);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  background: var(--bg-light);
+  min-height: 200px;
 }
 
 .ayah-item {
-  margin-bottom: 1.5rem;
-  padding: 0.75rem;
-  border-radius: 8px;
+  margin-bottom: var(--spacing-lg);
+  padding: var(--spacing-md);
+  border-radius: var(--border-radius);
   transition: background-color 0.2s ease;
-  flex-shrink: 0;
 }
 
-/* Highlight the random ayah */
 .ayah-item.ayah-random {
-  background-color: #fff9e6;
+  background: var(--bg-highlight);
   border-left: 3px solid #fbbf24;
 }
 
 .ayah-text {
-  font-size: 1.4rem;
+  font-size: var(--font-xl);
   text-align: center;
-  line-height: 2rem;
+  line-height: 2;
   direction: rtl;
+  margin: 0;
   word-wrap: break-word;
 }
 
-.ayah-key {
-  margin-top: 0.3rem;
-  text-align: center;
-  font-style: italic;
-  color: #555;
-  direction: ltr;
-  font-size: 0.85rem;
+.ayah-text + hr {
+  margin-top: var(--spacing-md);
+  border: none;
+  border-top: 1px solid var(--border-color);
 }
 
-/* All buttons default styling */
+/* ===== Controls Section ===== */
+.controls-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.button-group {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
+}
+
+.quiz-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  align-items: center;
+}
+
+/* ===== Buttons ===== */
 button {
-  padding: 0.75rem 1.5rem;
-  min-width: 120px;
-  min-height: 48px;
-  font-size: 1rem;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  background: #fff;
+  min-height: var(--button-height);
+  padding: var(--spacing-sm) var(--spacing-lg);
+  font-size: var(--font-md);
+  border-radius: var(--border-radius);
+  border: 1px solid var(--border-color);
+  background: white;
   cursor: pointer;
-  transition: all 0.2s ease;
-  flex-shrink: 0;
-  margin: 0.4rem;
+  transition: all 0.2s;
+  font-weight: 500;
 }
 
 button:hover:not(:disabled) {
-  background: #f0f0f0;
+  background: var(--bg-light);
   transform: translateY(-1px);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
@@ -230,124 +194,119 @@ button:disabled {
   cursor: not-allowed;
 }
 
-/* Quiz Answer Section - Make Select Surah autocomplete larger and readable */
-#root > .MuiAutocomplete-root {
-  margin: 0.5rem auto;
-  max-width: 500px;
+/* ===== MUI Autocomplete Overrides ===== */
+.MuiAutocomplete-root {
   width: 100%;
-  flex-shrink: 0;
+  max-width: 500px;
 }
 
-#root > .MuiAutocomplete-root .MuiInputBase-root {
-  height: 48px;
-  font-size: 1rem;
+.MuiInputBase-root {
+  min-height: var(--input-height);
 }
 
-#root > .MuiAutocomplete-root .MuiInputLabel-root {
-  font-size: 1rem;
-}
-
-#root > .MuiAutocomplete-root .MuiTextField-root {
-  font-size: 1rem;
-}
-
-.error {
-  color: red;
-  font-size: 0.85rem;
-  margin: 0.5rem 0;
-  flex-shrink: 0;
-}
-
-/* Mobile styles */
-@media (max-width: 768px) {
-  #root {
-    padding: 0.5rem;
-  }
-
-  .score-counter {
-    top: 5px;
-    left: 5px;
-    padding: 5px 10px;
-    font-size: 0.9rem;
-  }
-
-  h1 {
-    font-size: 1.1rem;
-    margin: 0.3rem 0;
-  }
-
-  .filter-toggle {
-    font-size: 0.9rem;
-    padding: 0.3rem 0.6rem;
-  }
-  
-  .quiz-filter-group {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 0.5rem;
-  }
-  
-  .quiz-filter-group.active {
-    max-height: 350px;
-  }
-  
-  .quiz-filter-group .MuiAutocomplete-root {
-    width: 100%;
-    max-width: 100%;
-  }
-  
-  .quiz-filter-group .MuiInputBase-root {
-    height: 44px;
-  }
-
-  .ayah-text {
-    font-size: 1.2rem;
-    line-height: 1.8rem;
-  }
-
-  .ayah-key {
-    font-size: 0.75rem;
-  }
-
-  button {
-    padding: 0.65rem 1.2rem;
-    min-width: 100px;
-    min-height: 44px;
-    font-size: 0.95rem;
-    margin: 0.3rem;
-  }
-
-  #root > .MuiAutocomplete-root {
-    max-width: 100%;
-  }
-}
-
-/* Extra small mobile */
-@media (max-width: 480px) {
-  .score-counter {
-    font-size: 0.85rem;
-    padding: 4px 8px;
-  }
-
-  h1 {
-    font-size: 1rem;
-  }
-
-  .ayah-text {
-    font-size: 1.1rem;
-    line-height: 1.6rem;
-  }
-
-  button {
-    padding: 0.6rem 1rem;
-    min-width: 90px;
-    min-height: 44px;
-    font-size: 0.9rem;
-    margin: 0.25rem;
-  }
-}
-
-/* Ensure MUI Autocomplete dropdowns are visible */
 .MuiAutocomplete-popper {
   z-index: 1300 !important;
+}
+
+/* ===== Error Messages ===== */
+.error {
+  color: #dc2626;
+  font-size: var(--font-sm);
+  text-align: center;
+}
+
+/* ===== Mobile Optimization ===== */
+@media (max-width: 768px) {
+  :root {
+    --button-height: 44px;
+    --input-height: 44px;
+    --font-xl: 1.3rem;
+    --spacing-md: 0.75rem;
+  }
+
+  #root {
+    padding: var(--spacing-sm);
+    gap: var(--spacing-sm);
+  }
+
+  .score-counter {
+    top: var(--spacing-sm);
+    left: var(--spacing-sm);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    font-size: var(--font-sm);
+  }
+
+  h1 {
+    font-size: var(--font-md);
+  }
+
+  .filter-container {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-sm);
+  }
+
+  .filter-container.active {
+    max-height: 400px;
+  }
+
+  .ayah-container {
+    padding: var(--spacing-md);
+  }
+
+  .ayah-text {
+    font-size: var(--font-lg);
+    line-height: 1.8;
+  }
+
+  .button-group {
+    width: 100%;
+  }
+
+  .button-group button {
+    flex: 1;
+    min-width: 80px;
+  }
+
+  .quiz-section {
+    width: 100%;
+  }
+
+  .MuiAutocomplete-root {
+    max-width: 100%;
+  }
+}
+
+/* ===== Small Mobile ===== */
+@media (max-width: 480px) {
+  :root {
+    --font-xl: 1.15rem;
+  }
+
+  .score-counter {
+    font-size: 0.8rem;
+    padding: 0.3rem 0.6rem;
+  }
+
+  button {
+    font-size: var(--font-sm);
+    padding: var(--spacing-sm) var(--spacing-md);
+  }
+}
+
+/* ===== Smooth Scrolling ===== */
+.ayah-container {
+  scroll-behavior: smooth;
+}
+
+.ayah-container::-webkit-scrollbar {
+  width: 6px;
+}
+
+.ayah-container::-webkit-scrollbar-thumb {
+  background: #bbb;
+  border-radius: 10px;
+}
+
+.ayah-container::-webkit-scrollbar-track {
+  background: transparent;
 }
