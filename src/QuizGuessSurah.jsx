@@ -28,83 +28,115 @@ function QuizButton({trueChapterId, loading, setScore}) {
         setIsSubmitted(true);
     }
 
-    return (
-      <div className="quiz-section">
-          <Autocomplete
-              options={constants.surah_ids}
-              getOptionLabel={(id) => `${id}. ${constants.surah_names[id - 1]}`}
-              onChange={(_, newSurahGuess) => setGuessChapterID(newSurahGuess)}
-              renderInput={(params) => <TextField {...params} label="Select Surah" />}
-              disabled={isSubmitted}
-          />
-          <div className="button-group">
-              <button
-                  disabled={loading || isSubmitted}
-                  onClick={handleSubmit}
-              >
-                  Show Result
-              </button>
-              <button onClick={() => setScore(0)}>
-                  Reset Score
-              </button>
-          </div>
-          {resultMessage && <div>{resultMessage}</div>}
-      </div>
-  );
+  return (
+        <div className="quiz">
+            <div className="quiz-select">
+                <select
+                    value={guessChapterID}
+                    onChange={(e) => setGuessChapterID(e.target.value)}
+                    disabled={isSubmitted}
+                >
+                    <option value="">Select a Surah...</option>
+                    {constants.surah_ids.map(id => (
+                        <option key={id} value={id}>
+                            {id}. {constants.surah_names[id - 1]}
+                        </option>
+                    ))}
+                </select>
+            </div>
+            
+            <div className="quiz-buttons">
+                <button
+                    disabled={loading || isSubmitted}
+                    onClick={handleSubmit}
+                >
+                    Show Result
+                </button>
+                <button onClick={() => setScore(0)}>
+                    Reset Score
+                </button>
+            </div>
+            
+            {resultMessage && <div className="quiz-result">{resultMessage}</div>}
+        </div>
+    ); 
 } 
 
 function QuizFilters({setFilters}){
   const [isVisible, setIsVisible] = useState(false);
   
-  return (
-    <div className="filter-section">
+ return (
+    <div className="filters">
       <button 
-        className="filter-toggle"
+        className="filters-toggle"
         onClick={() => setIsVisible(!isVisible)}
-        aria-label="Toggle filters"
       >
-        {isVisible ? 'Filters ▼' : 'Filters ▶'}
+        {isVisible ? 'Hide Filters ▼' : 'Show Filters ▶'}
       </button>
-      <div className={`filter-container ${isVisible ? 'active' : ''}`}>
-        <Autocomplete
-          options={constants.juz_ids}
-          getOptionLabel={(id) => id.toString()}
-          onChange={(_, newJuz) => setFilters(prev => ({ ...prev, juz_number: newJuz }))}
-          renderInput={(params) => <TextField {...params} label="Juz" />}
-        /> 
-        <Autocomplete
-          options={constants.page_numbers}
-          getOptionLabel={(id) => id.toString()}
-          onChange={(_, newPage) => setFilters(prev => ({...prev, page_number: newPage}))}
-          renderInput={(params) => <TextField {...params} label="Page" />}
-        />
-        <Autocomplete
-          options={constants.hizb_numbers}
-          getOptionLabel={(id) => id.toString()}
-          onChange={(_, newHizb) => setFilters(prev => ({...prev, hizb_number: newHizb}))}
-          renderInput={(params) => <TextField {...params} label="Hizb" />}
-        />
-       <Autocomplete
-          options={constants.rub_el_hizb_numbers}
-          getOptionLabel={(id) => id.toString()}
-          onChange={(_, newRubHizb) => setFilters(prev => ({...prev, rub_el_hizb_number: newRubHizb}))}
-          renderInput={(params) => <TextField {...params} label="Rub el Hizb" />}
-        />
-       <Autocomplete
-          options={constants.ruku_numbers}
-          getOptionLabel={(id) => id.toString()}
-          onChange={(_, newRuku) => setFilters(prev => ({...prev, ruku_number: newRuku}))}
-          renderInput={(params) => <TextField {...params} label="Ruku" />}
-        />
-       <Autocomplete
-          options={constants.manzil_numbers}
-          getOptionLabel={(id) => id.toString()}
-          onChange={(_, newManzil) => setFilters(prev => ({...prev, manzil_number: newManzil}))}
-          renderInput={(params) => <TextField {...params} label="Manzil" />}
-        />
+      
+      <div className={`filters-grid ${isVisible ? 'show' : ''}`}>
+        <div className="filter-select">
+          <label>Juz</label>
+          <select onChange={(e) => setFilters(prev => ({ ...prev, juz_number: e.target.value || null }))}>
+            <option value="">All</option>
+            {constants.juz_ids.map(id => (
+              <option key={id} value={id}>{id}</option>
+            ))}
+          </select>
+        </div>
+        
+        <div className="filter-select">
+          <label>Page</label>
+          <select onChange={(e) => setFilters(prev => ({ ...prev, page_number: e.target.value || null }))}>
+            <option value="">All</option>
+            {constants.page_numbers.map(num => (
+              <option key={num} value={num}>{num}</option>
+            ))}
+          </select>
+        </div>
+        
+        <div className="filter-select">
+          <label>Hizb</label>
+          <select onChange={(e) => setFilters(prev => ({ ...prev, hizb_number: e.target.value || null }))}>
+            <option value="">All</option>
+            {constants.hizb_numbers.map(num => (
+              <option key={num} value={num}>{num}</option>
+            ))}
+          </select>
+        </div>
+        
+        <div className="filter-select">
+          <label>Rub el Hizb</label>
+          <select onChange={(e) => setFilters(prev => ({ ...prev, rub_el_hizb_number: e.target.value || null }))}>
+            <option value="">All</option>
+            {constants.rub_el_hizb_numbers.map(num => (
+              <option key={num} value={num}>{num}</option>
+            ))}
+          </select>
+        </div>
+        
+        <div className="filter-select">
+          <label>Ruku</label>
+          <select onChange={(e) => setFilters(prev => ({ ...prev, ruku_number: e.target.value || null }))}>
+            <option value="">All</option>
+            {constants.ruku_numbers.map(num => (
+              <option key={num} value={num}>{num}</option>
+            ))}
+          </select>
+        </div>
+        
+        <div className="filter-select">
+          <label>Manzil</label>
+          <select onChange={(e) => setFilters(prev => ({ ...prev, manzil_number: e.target.value || null }))}>
+            <option value="">All</option>
+            {constants.manzil_numbers.map(num => (
+              <option key={num} value={num}>{num}</option>
+            ))}
+          </select>
+        </div>
       </div>
     </div>
-  )
+  ) 
 }
 
 function QuizGuessSurah() {
@@ -154,10 +186,9 @@ function QuizGuessSurah() {
   if (ayahList.length == 0) {
     return <div>Loading Ayah...</div>;
   }
-  
-return (
+  return (
     <>
-      <div className="score-counter">Score: {score}</div>
+      <div className="score">Score: {score}</div>
       
       <h1>Qur'an Random Ayah</h1>
       
@@ -165,15 +196,13 @@ return (
       
       <AyahDisplay 
         ayahList={ayahList} 
-        loading={loading} 
-        error={error} 
         quizAyahKey={quizAyahKey}
       /> 
 
-      {error && <p className="error">{JSON.stringify(error)}</p>}   
+      {error && <p className="error">{JSON.stringify(error)}</p>}
 
-      <div className="controls-section">
-        <div className="button-group">
+      <div className="controls">
+        <div className="nav-buttons">
           <button onClick={handlePrevious} disabled={loading || ayahList.length === 0}>
             Previous
           </button>
@@ -186,14 +215,14 @@ return (
         </div>
 
         <QuizButton 
-          key={quizAyahKey}  // This is the magic line!
+          key={quizAyahKey}
           trueChapterId={quizAyahKey.split(":")[0]} 
           loading={loading}
           setScore={setScore}
         />
       </div>
     </>
-  )
+  ) 
 }
 
 function getNextVerseKey(verse_key){
