@@ -1,6 +1,4 @@
 import { useState, useEffect} from 'react';
-import Autocomplete from '@mui/material/Autocomplete';
-import TextField from '@mui/material/TextField';
 import './App.css'
 import { AyahDisplay, fetchRandomAyah, fetchSpecificAyah} from './Ayah';
 import useFetchAyah from "./hooks/useFetchAyah";
@@ -10,7 +8,7 @@ import * as constants from './constants';
 //what is the difference between putting the parameters like this (x,y) and ({x,y})
 function QuizButton({trueChapterId, loading, setScore}) {
     const [resultMessage, setResultMessage] = useState("");
-    const [guessChapterID, setGuessChapterID] = useState(null);
+    const [guessChapterID, setGuessChapterID] = useState(0);
     const [isSubmitted, setIsSubmitted] = useState(false);
 
     const handleSubmit = () => {
@@ -50,7 +48,7 @@ function QuizButton({trueChapterId, loading, setScore}) {
                     disabled={loading || isSubmitted}
                     onClick={handleSubmit}
                 >
-                    Show Result
+                    Submit
                 </button>
                 <button onClick={() => setScore(0)}>
                     Reset Score
@@ -207,7 +205,7 @@ function QuizGuessSurah() {
             Previous
           </button>
           <button onClick={refreshAyah} disabled={loading}>
-            Random Ayah
+            New
           </button>
           <button onClick={handleNext} disabled={loading || ayahList.length === 0}>
             Next
