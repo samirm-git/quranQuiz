@@ -1,5 +1,4 @@
 import axios from 'axios'
-import './App.css'
 
 async function fetchRandomAyah({chapter_number, page_number, juz_number, hizb_number, rub_el_hizb_number, ruku_number,
    manzil_number, language, words, translations, audio, tafsirs} = {}) {
@@ -40,29 +39,6 @@ async function fetchSpecificAyah({verse_key, language, words, translations, audi
 }catch (err){
   throw new Error(`fetchSpecificAyah: ${err.message}`)
 }
-
 }
 
-function AyahDisplay({ayahList, loading, error, quizAyahKey}) {
-  // if (loading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error}</div>;
-  if (!ayahList || ayahList.length === 0) return <div>No ayahs loaded yet</div>;
-
-  return (
-    <div className="ayah-display">
-      {ayahList.map((a) => (
-        <div 
-          key={a.verse_key} 
-          className={`ayah ${a.verse_key === quizAyahKey ? 'highlight' : ''}`}
-        >
-          <p className="ayah-text">
-            {a.text_uthmani || a.text_indopak}
-          </p>
-          <hr />
-        </div>
-      ))}
-    </div>
-  ) 
-}
-
-export {AyahDisplay, fetchRandomAyah, fetchSpecificAyah}
+export {fetchRandomAyah, fetchSpecificAyah}

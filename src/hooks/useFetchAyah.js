@@ -1,7 +1,6 @@
 import { useState } from "react";
 
-export default function useFetchAyah() {
-  const [ayah, setAyah] = useState(null);
+function useFetchAyah() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -24,3 +23,5 @@ export default function useFetchAyah() {
 
   return { loading, error, loadAyah };
 }
+
+export default useFetchAyah;
