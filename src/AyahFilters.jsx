@@ -2,7 +2,7 @@ import { useState} from 'react';
 import './App.css'
 import * as constants from './constants';
 
-function QuizFilters({setFilters}){
+function AyahFilters({setFilters}){
   const [isVisible, setIsVisible] = useState(false);
   
  return (
@@ -79,4 +79,4 @@ function QuizFilters({setFilters}){
   ) 
 }
 
-export {QuizFilters}
+export {AyahFilters}

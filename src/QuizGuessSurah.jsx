@@ -1,8 +1,8 @@
 import './App.css'
 import { useState} from 'react';
 import { AyahDisplay} from './AyahDisplay';
-import { QuizButton } from './QuizButton';
-import { QuizFilters } from './QuizFilters';
+import { GuessAyahButton } from './GuessAyahButton';
+import { AyahFilters } from './AyahFilters';
 import { NavButtons } from './NavButtons';
 import useAyahNavigation from './hooks/useAyahNavigation';
 
@@ -21,7 +21,7 @@ function QuizGuessSurah() {
       
       <h1>Qur'an Random Ayah</h1>
       
-      <QuizFilters setFilters={setFilters} />
+      <AyahFilters setFilters={setFilters} />
       
       <AyahDisplay 
         ayahList={ayahList} 
@@ -39,7 +39,7 @@ function QuizGuessSurah() {
        disabled={loading || ayahList.length === 0}
         /> 
 
-        <QuizButton 
+        <GuessAyahButton 
           key={quizKey}
           trueChapterId={quizKey.split(":")[0]} 
           loading={loading}
@@ -50,5 +50,5 @@ function QuizGuessSurah() {
   ) 
 }
 
-export {QuizGuessSurah}
+export default QuizGuessSurah
  

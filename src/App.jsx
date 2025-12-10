@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-function Testing() {
+function App() {
   return (
     <div>
       <h1>Home Page</h1>
@@ -11,7 +11,7 @@ function Testing() {
             <Link to="/guessSurah">Go to Guess Surah Quiz</Link>
           </li>
           <li>
-            <Link to="/completeAyah">Go to Complete the Ayah Quiz</Link>
+            <Link to="/completeTheAyah">Go to Complete the Ayah Quiz</Link>
           </li>
         </ul>
       </nav>
@@ -20,4 +20,4 @@ function Testing() {
 }
 
 
-export {Testing}
+export default App 
