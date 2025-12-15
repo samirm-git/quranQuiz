@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { fetchRandomAyah, fetchSpecificAyah } from '../fetchAyah';
 import useFetchAyah from './useFetchAyah';
 import * as constants from '../constants';
@@ -31,17 +31,13 @@ function getPreviousVerseKey(verse_key) {
 function useAyahNavigation(filters = {}) {
   const { loading, error, loadAyah } = useFetchAyah();
   const [ayahList, setAyahList] = useState([]);
-  const [quizKey, setQuizKey] = useState(null);
-
-  useEffect(() => {
-    refreshAyah();
-  }, []);
+  const [quizAyah, setQuizAyah] = useState(null);
 
   const refreshAyah = async () => {
     const newAyah = await loadAyah(fetchRandomAyah, filters);
     if (newAyah) {
       setAyahList([newAyah]);
-      setQuizKey(newAyah.verse_key);
+      setQuizAyah(newAyah);
     }
   };
 
@@ -73,7 +69,7 @@ function useAyahNavigation(filters = {}) {
 
   return {
     ayahList,
-    quizKey,
+    quizAyah,
     loading,
     error,
     refreshAyah,

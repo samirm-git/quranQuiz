@@ -42,4 +42,45 @@ const ayahs_per_surah = [7, 286, 200, 176, 120, 165, 206, 75, 129, 109,
     5, 4, 5, 6                                     
 ];
 
-export {surah_ids, juz_ids, page_numbers, hizb_numbers, rub_el_hizb_numbers, ruku_numbers, manzil_numbers, surah_names, ayahs_per_surah}
+const quranStoppingSymbols = [
+  "م",     // Waqf Lazim
+  "ط",     // Waqf Mutlaq
+  "ج",     // Waqf Ja'iz
+  "ز",     // Waqf Mujawwaz
+  "صلى",   // Wasl Awla
+  "قلى",   // Waqf Awla
+  "لا",    // La Waqf
+  "س",     // Saktah
+  "∴",     // Part of Waqf Mu'anaqah (paired stop)
+  "ۖ",     // Minor permissible stop
+  "ۗ",
+  "ۘ",
+  "ۙ",
+  "ۚ",
+
+   "ۛ",     // Waqf Mu'anaqah (paired stop symbol in Indo-Pak)
+  "ۛۛ",    // Explicit paired form (sometimes printed together)
+  "قف",    // Stop (word form, rare but present in some prints)
+  "وقف",   // Stop (full word form, very rare)
+  "سكت",   // Saktah (written form instead of symbol)
+  "ق",     // Qif (stop)
+  "صل",    // Continue (صل)
+  "صلے"    // Continue (Urdu-influenced variant, rare)
+];
+
+const indoPakStoppingSymbols = [
+  "ۛ",     // Waqf Mu'anaqah (paired stop symbol in Indo-Pak)
+  "ۛۛ",    // Explicit paired form (sometimes printed together)
+  "قف",    // Stop (word form, rare but present in some prints)
+  "وقف",   // Stop (full word form, very rare)
+  "سكت",   // Saktah (written form instead of symbol)
+  "ق",     // Qif (stop)
+  "صل",    // Continue (صل)
+  "صلے"    // Continue (Urdu-influenced variant, rare)
+];
+
+
+
+export {surah_ids, juz_ids, page_numbers, hizb_numbers, rub_el_hizb_numbers, ruku_numbers, manzil_numbers, surah_names, ayahs_per_surah,
+  quranStoppingSymbols
+}

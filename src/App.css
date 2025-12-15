@@ -217,21 +217,17 @@ h1 {
 }
 
 /* ===== Quiz Section ===== */
-.quiz {
+.quiz-form {
   display: flex;
   flex-direction: column;
   gap: 1rem;
   align-items: center;
+  width: 100%;
 }
 
-.quiz-select {
+.quiz-form select {
   width: 100%;
   max-width: 500px;
-  position: relative;
-}
-
-.quiz-select select {
-  width: 100%;
   padding: 1rem;
   background: var(--bg-secondary);
   border: 2px solid var(--border);
@@ -242,12 +238,12 @@ h1 {
   transition: var(--transition);
 }
 
-.quiz-select select:focus {
+.quiz-form select:focus {
   outline: none;
   border-color: var(--accent);
 }
 
-.quiz-select select:disabled {
+.quiz-form select:disabled {
   opacity: 0.6;
   cursor: not-allowed;
 }

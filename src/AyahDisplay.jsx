@@ -1,4 +1,6 @@
-function AyahDisplay({ayahList, error, quizKey}) {
+
+
+function AyahDisplay({ayahList, error, quizAyah}) {
   if (error) return <div>Error: {error}</div>;
   if (!ayahList || ayahList.length === 0) return <div>No ayahs loaded yet</div>;
 
@@ -7,10 +9,12 @@ function AyahDisplay({ayahList, error, quizKey}) {
       {ayahList.map((a) => (
         <div 
           key={a.verse_key} 
-          className={`ayah ${a.verse_key === quizKey ? 'highlight' : ''}`}
+          className={`ayah ${a.verse_key === quizAyah.verse_key ? 'highlight' : ''}`}
         >
           <p className="ayah-text">
-            {a.text_uthmani || a.text_indopak}
+            {a.verse_key === quizAyah.verse_key ? 
+            quizAyah.text_uthmani || "error displaying ayah. Please try again": 
+            a.text_uthmani || "error displaying ayah. Please try again" }
           </p>
           <hr />
         </div>

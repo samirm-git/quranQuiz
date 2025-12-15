@@ -1,7 +1,7 @@
 import './App.css'
-import { useState} from 'react';
+import { useState, useEffect} from 'react';
 import { AyahDisplay} from './AyahDisplay';
-import { GuessAyahButton } from './GuessAyahButton';
+import GuessAyahForm from './GuessAyahForm';
 import { AyahFilters } from './AyahFilters';
 import { NavButtons } from './NavButtons';
 import useAyahNavigation from './hooks/useAyahNavigation';
@@ -9,8 +9,12 @@ import useAyahNavigation from './hooks/useAyahNavigation';
 function QuizGuessSurah() {
   const [score, setScore] = useState(0);
   const [filters, setFilters] = useState({});
-  const {ayahList, quizKey, loading, error,
+  const {ayahList, quizAyah, loading, error,
         refreshAyah, handleNext, handlePrevious} = useAyahNavigation(filters);
+  
+  useEffect(() => {
+    refreshAyah();
+  }, []);
         
   if (ayahList.length == 0) {
     return <div>Loading Ayah...</div>;
@@ -26,7 +30,7 @@ function QuizGuessSurah() {
       <AyahDisplay 
         ayahList={ayahList} 
         error={error}
-        quizKey={quizKey}
+        quizAyah={quizAyah}
       /> 
 
       {error && <p className="error">{JSON.stringify(error)}</p>}
@@ -38,13 +42,12 @@ function QuizGuessSurah() {
        onNext={handleNext}
        disabled={loading || ayahList.length === 0}
         /> 
-
-        <GuessAyahButton 
-          key={quizKey}
-          trueChapterId={quizKey.split(":")[0]} 
+        <GuessAyahForm 
+          key={quizAyah.verse_key}
+          trueChapterId={quizAyah.verse_key.split(":")[0]} 
           loading={loading}
           setScore={setScore}
-        />
+          />
       </div>
     </>
   ) 

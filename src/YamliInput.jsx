@@ -1,68 +1,51 @@
 // YamliInput.jsx
-import { useEffect, useRef } from "react";
+import './App.css'
+import { useEffect } from "react";
 
-function YamliInput({ handleSubmit, loading }) {
-  const inputRef = useRef(null);
-
+function YamliInput({ handleSubmit, loading, setScore }) {
   useEffect(() => {
     if (typeof window === "undefined") return;
-    const inputEl = inputRef.current;
-    if (!inputEl) return;
-
-    function ensureYamliInitialized() {
-      if (!window.Yamli || typeof window.Yamli.init !== "function") {
-        return false;
-      }
-
-      // Only run init once globally
-      if (!window.__yamliInitialized) {
-        window.__yamliInitialized = window.Yamli.init({
-          uiLanguage: "en",
-          startMode: "on", // or "onOrUserDefault"
-        });
-      }
-
-      return !!window.__yamliInitialized;
+    if (typeof window.Yamli !== "object") {
+      console.warn("Yamli not available on window");
+      return;
     }
 
-    // Poll until the script is loaded and Yamli is initialized
-    const intervalId = setInterval(() => {
-      if (!ensureYamliInitialized()) {
-        return;
-      }
+    // Init only once per page
+    if (!window.__yamliInitialized) {
+      window.__yamliInitialized = window.Yamli.init({
+        uiLanguage: "en",
+        startMode: "on", // force ON for debugging
+      });
+    }
 
-      // At this point Yamli is ready; yamlify this specific input
-      window.Yamli.yamlify(inputEl.id, {
+    if (window.__yamliInitialized) {
+      // 👇 This is the key change: yamlify *all* text inputs
+      window.Yamli.yamlifyType("textbox", {
         settingsPlacement: "bottomLeft",
       });
-
-      clearInterval(intervalId);
-    }, 100);
-
-    // Cleanup for this component only
-    return () => {
-      clearInterval(intervalId);
-      if (
-        window.Yamli &&
-        typeof window.Yamli.deyamlify === "function"
-      ) {
-        window.Yamli.deyamlify(inputEl.id);
-      }
-    };
-  }, []);
+    } else {
+      console.warn("Yamli.init() returned false");
+    }
+  }, []); // run once when this component mounts
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className='quiz-form' onSubmit={handleSubmit}>
       <input
-        ref={inputRef}
         id="yamli-input"
         type="text"
+        required
         name="yamliInput"
-        // IMPORTANT: don't pass a `value` prop – leave it uncontrolled
+        // no value prop – leave it uncontrolled
       />
+      <div className='quiz-buttons'>
       <button type="submit" disabled={loading}>
         Submit
       </button>
+      <button type='button' onClick={() => setScore(0)}>
+        Reset Score
+      </button>
+      </div>
+
     </form>
   );
 }

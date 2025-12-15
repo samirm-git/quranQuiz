@@ -14,7 +14,7 @@ export default async function handler(req, res) {
           "x-client-id": process.env.CLIENT_ID,
         },
       params: {
-        fields: 'text_uthmani,text_indopak',
+        fields: 'text_uthmani_simple,text_uthmani,text_indopak',
         ...req.query
       }
       }
