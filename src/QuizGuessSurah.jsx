@@ -5,6 +5,7 @@ import GuessAyahForm from './GuessAyahForm';
 import { AyahFilters } from './AyahFilters';
 import { NavButtons } from './NavButtons';
 import useAyahNavigation from './hooks/useAyahNavigation';
+import NavBar from './NavBar';
 
 function QuizGuessSurah() {
   const [score, setScore] = useState(0);
@@ -26,7 +27,7 @@ function QuizGuessSurah() {
   return (
     <>
       <div className="score">Score: {score}</div>
-      
+      <NavBar/>
       <h1>Quran Quiz - Guess The Surah</h1>
       
       <AyahFilters setFilters={setFilters} />

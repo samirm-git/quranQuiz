@@ -1,8 +1,9 @@
 import './App.css'
-import { useState, useEffect, useMemo} from 'react';
+import { useState, useEffect} from 'react';
 import { AyahDisplay } from './AyahDisplay';
 import { AyahFilters } from './AyahFilters';
 import { NavButtons } from './NavButtons';
+import NavBar from './NavBar';
 import useAyahNavigation from './hooks/useAyahNavigation';
 import YamliInput from './YamliInput';
 import DisplayGuessResult from './DisplayGuessResult';
@@ -94,6 +95,7 @@ export default function QuizCompleteTheAyah(){
   return(
     <>
     <div className='score'>Score: {score}</div>
+    <NavBar/>
     <h1>Complete the Ayah Quiz</h1>
     <AyahFilters setFilters={setFilters} />
       
