@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Yamli Test</title>
+  </head>
+  <body>
+    <input type="text" id="mybox" />
+
+    <script type="text/javascript" src="https://api.yamli.com/js/yamli_api.js"></script>
+    <script type="text/javascript">
+      if (typeof Yamli === "object" && Yamli.init({ uiLanguage: "en", startMode: "on" })) {
+        Yamli.yamlify("mybox", { settingsPlacement: "bottomLeft" });
+      } else {
+        console.log("Yamli failed to init");
+      }
+    </script>
+  </body>
+</html>
