@@ -257,9 +257,13 @@ h1 {
 
 .quiz-result {
   padding: 1rem;
-  border-radius: var(--radius);
   text-align: center;
   font-weight: 500;
+}
+
+.quiz-instructions{
+  text-align: center;
+  /* font-weight: 400; */
 }
 
 /* ===== Buttons ===== */
@@ -292,6 +296,7 @@ button:disabled {
   color: var(--error);
   text-align: center;
   padding: 0.5rem;
+  font-weight: 300;
 }
 
 /* ===== Scrollbar ===== */

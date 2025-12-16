@@ -63,7 +63,15 @@ export default function QuizCompleteTheAyah(){
  
 
   if (ayahList.length == 0 || !quizAyahHidden) {
-    return <div>Loading Ayah...</div>;
+    return(
+    <>
+    <div>
+      Loading Ayah...
+      <br/>
+      Part of the ayah will be hidden. You need to fill it in.
+    </div>
+    </>
+    )
   }
 
   const handleSubmit = (e) => {

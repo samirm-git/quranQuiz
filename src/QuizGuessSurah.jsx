@@ -23,7 +23,7 @@ function QuizGuessSurah() {
     <>
       <div className="score">Score: {score}</div>
       
-      <h1>Qur'an Random Ayah</h1>
+      <h1>Quran Quiz - Guess The Surah</h1>
       
       <AyahFilters setFilters={setFilters} />
       
@@ -36,18 +36,19 @@ function QuizGuessSurah() {
       {error && <p className="error">{JSON.stringify(error)}</p>}
 
       <div className="controls">
-       <NavButtons 
-       onPrevious={handlePrevious}
-       onRefresh={refreshAyah}
-       onNext={handleNext}
-       disabled={loading || ayahList.length === 0}
-        /> 
+       
         <GuessAyahForm 
           key={quizAyah.verse_key}
           trueChapterId={quizAyah.verse_key.split(":")[0]} 
           loading={loading}
           setScore={setScore}
           />
+        <NavButtons 
+       onPrevious={handlePrevious}
+       onRefresh={refreshAyah}
+       onNext={handleNext}
+       disabled={loading || ayahList.length === 0}
+        /> 
       </div>
     </>
   ) 

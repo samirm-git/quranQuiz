@@ -2,6 +2,7 @@ import { useState} from 'react';
 import './App.css'
 import * as constants from './constants';
 import DisplayGuessResult from './DisplayGuessResult';
+import HelpTool from './HelpTool/HelpTool';
 
 export default function GuessAyahForm({trueChapterId, loading, setScore}) {
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -22,6 +23,13 @@ export default function GuessAyahForm({trueChapterId, loading, setScore}) {
 
   return (
   <>   
+   <div className="help-section-header">
+    <span className='quiz-instructions'>Guess which surah the ayah is in</span>
+    <HelpTool 
+      message="Select the Surah you think this Ayah belongs to from the dropdown menu, then click Submit to check your answer."
+      position="right"
+    />
+  </div>
   <form onSubmit={handleSubmit} className='quiz-form'>
     <select
       name="surah"
