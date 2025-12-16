@@ -68,6 +68,7 @@ export default function QuizCompleteTheAyah(){
     <div>
       Loading Ayah...
       <br/>
+      <br/>
       Part of the ayah will be hidden. You need to fill it in.
     </div>
     </>

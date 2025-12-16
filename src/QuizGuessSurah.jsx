@@ -17,7 +17,11 @@ function QuizGuessSurah() {
   }, []);
         
   if (ayahList.length == 0) {
-    return <div>Loading Ayah...</div>;
+    return <div>Loading Ayah...
+      <br/>
+      <br />
+      You need to guess which surah the ayah is from. You can filter the generation process using the filter options.
+    </div>;
   }
   return (
     <>
