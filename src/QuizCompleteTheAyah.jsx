@@ -66,7 +66,7 @@ export default function QuizCompleteTheAyah(){
   if (ayahList.length == 0 || !quizAyahHidden) {
     return(
     <>
-    <div>
+    <div className='loadingInstructions'>
       Loading Ayah...
       <br/>
       <br/>
