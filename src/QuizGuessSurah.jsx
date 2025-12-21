@@ -21,14 +21,17 @@ function QuizGuessSurah() {
     return <div className='loadingInstructions'>Loading Ayah...
       <br/>
       <br />
-      You need to guess which surah the ayah is from. You can filter the generation process using the filter options.
+      You need to guess which surah the ayah is from. You can filter the ayah using the filter options
     </div>;
   }
   return (
     <>
+     <div className="top-ui" aria-label="Top left controls">
       <div className="score">Score: {score}</div>
-      <NavBar/>
-      <h1>Quran Quiz - Guess The Surah</h1>
+      <NavBar />
+    </div>
+     <h1>Quran Quiz – Guess The Surah</h1>
+ 
       
       <AyahFilters setFilters={setFilters} />
       

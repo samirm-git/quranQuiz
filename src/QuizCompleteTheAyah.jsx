@@ -94,8 +94,10 @@ export default function QuizCompleteTheAyah(){
 
   return(
     <>
-    <div className='score'>Score: {score}</div>
-    <NavBar/>
+    <div className='top-ui' aria-label="Top left controls">
+      <div className='score'>Score: {score}</div>
+      <NavBar/>
+    </div>
     <h1>Complete the Ayah Quiz</h1>
     <AyahFilters setFilters={setFilters} />
       
@@ -107,16 +109,16 @@ export default function QuizCompleteTheAyah(){
 
     {error && <p className="error">{JSON.stringify(error)}</p>}
     <div className="controls">
+      <YamliInput handleSubmit={handleSubmit} loading={loading} setScore={setScore} />
+    <DisplayGuessResult isGuessCorrect={isGuessCorrect}
+      messages={{incorrectGuessMessage: `❌ Incorrect. The correct answer was ${quizAyahHidden.trueAnswer.join(" or ")}`}}/>
+    </div>
       <NavButtons 
        onPrevious={handlePrevious}
        onRefresh={refreshAyah}
        onNext={handleNext}
        disabled={loading || ayahList.length === 0}
       /> 
-      <YamliInput handleSubmit={handleSubmit} loading={loading} setScore={setScore} />
-    <DisplayGuessResult isGuessCorrect={isGuessCorrect}
-      messages={{incorrectGuessMessage: `❌ Incorrect. The correct answer was ${quizAyahHidden.trueAnswer.join(" or ")}`}}/>
-    </div>
     </>
   )
 

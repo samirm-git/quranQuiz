@@ -52,32 +52,38 @@ body {
   max-width: 1200px;
   margin: 0 auto;
   padding: 1rem;
+  padding-top: 4.5rem; 
   display: grid;
   grid-template-rows: auto auto auto 1fr auto;
   gap: 1rem;
 }
 
 /* ===== Score Badge ===== */
-.score {
+.top-ui {
   position: fixed;
   top: 1rem;
   left: 1rem;
+  z-index: 300;
 
+  display: flex;
+  gap: 0.5rem;
+  align-items: flex-start;
+
+  background: var(--bg-primary);
+}
+
+.score {
   background: var(--accent);
   color: white;
   padding: 0.5rem 1rem;
   border-radius: var(--radius);
   font-weight: 600;
   box-shadow: var(--shadow);
-  z-index: 100;
+  flex: 0 0 auto;
 }
 
 /*====== Nav Bar =====*/
 .nav-bar {
-  position: fixed;
-  top: 1rem;
-  left: calc(1rem + 6.5rem); /* score width + gap */
-
   display: flex;
   gap: 0.5rem;
   background: var(--bg-secondary);
@@ -85,14 +91,37 @@ body {
   border-radius: var(--radius);
   border: 1px solid var(--border);
   box-shadow: var(--shadow);
-  z-index: 99;
+
+  flex: 0 1 auto;
+  max-width: 100%;
+  flex-wrap: wrap;
 }
 
-
-/* 
-.nav-bar {
+.nav-links {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
   align-items: center;
-} */
+}
+
+.nav-bar.collapsed .nav-links {
+  display: none;
+}
+
+.nav-toggle {
+  padding: 0.4rem 0.75rem;
+  min-height: 36px;
+  background: var(--bg-primary);
+  border: 1px solid var(--border);
+  border-radius: calc(var(--radius) - 2px);
+  color: var(--text-primary);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  box-shadow: none;
+}
+
 
 .nav-link {
   padding: 0.4rem 0.75rem;
@@ -114,15 +143,6 @@ body {
   background: var(--accent-light);
   box-shadow: inset 0 0 0 1px var(--accent);
 }
-
-@media (max-width: 768px) {
-  .nav-bar {
-    left: 0.5rem;
-    top: 3rem;
-    flex-wrap: wrap;
-  }
-}
-
 
 /* ===== Header ===== */
 h1 {
@@ -245,6 +265,7 @@ h1 {
   display: flex;
   justify-content: center;
   gap: 0.5rem;
+  padding-bottom: 3.5rem;
   flex-wrap: wrap;
 }
 
@@ -380,8 +401,33 @@ button:disabled {
   #root {
     padding: 0.5rem;
     gap: 0.75rem;
+    padding-top: 1rem; /* sticky doesn't need extra space */
   }
-  
+
+   .top-ui {
+    position: sticky;
+    top: 0;
+    left: 0;
+    /* flex-direction: column; */
+    align-items: flex-start;
+    padding: 0.5rem;
+  }
+
+ .nav-bar.open {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .nav-bar.open .nav-links {
+    /* flex-direction: column; */
+    align-items: stretch;
+  }
+
+  .nav-link {
+    text-align: left;
+  }
+
+
   .score {
     top: 0.5rem;
     left: 0.5rem;
@@ -417,6 +463,10 @@ button:disabled {
 }
 
 @media (max-width: 480px) {
+  
+  /* .top-ui{
+    flex-direction: column;
+  } */
   .score {
     font-size: 0.85rem;
     padding: 0.3rem 0.6rem;
