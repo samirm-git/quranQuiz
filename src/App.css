@@ -330,7 +330,7 @@ h1 {
 }
 
 .quiz-result {
-  padding: 1rem;
+  /* padding: 0.1rem; */
   text-align: center;
   font-weight: 500;
 }
@@ -445,6 +445,8 @@ button:disabled {
   
   .ayah-display {
     padding: 1rem;
+    width: 100%;
+    min-height: 45vh;          /* prevents tiny box */
   }
   
   .ayah-text {
