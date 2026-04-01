@@ -271,7 +271,7 @@ h1 {
 
 
 /* ===== Yamli input ===== */
-#yamli-input {
+.yamli-arabic {
   display: block;
   margin: 0 auto;      /* centers horizontally */
   width: 100%;
@@ -284,7 +284,7 @@ h1 {
   box-sizing: border-box;
 }
 
-#yamli-input:focus {
+.yamli-arabic:focus {
   border-color: #6aa6ff;
   outline: none;
   box-shadow: 0 0 4px rgba(106, 166, 255, 0.5);

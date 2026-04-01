@@ -13,7 +13,7 @@ export default function NavBar() {
         aria-controls="primary-nav-links"
         onClick={() => setIsOpen((v) => !v)}
       >
-        Menu
+        ...
       </button>
 
       <div id="primary-nav-links" className="nav-links">
